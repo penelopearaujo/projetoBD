@@ -1,0 +1,9 @@
+A loja SwiftieStore é uma loja online brasileira que vende camisetas com estampas variadas, todas da cantora Taylor Swift. A loja tem clientes, e cada cliente tem nome, email, telefone, data de aniversário e endereço, e cpf, que funciona como o identificador. Clientes podem cadastrar mais de um telefone, porém só um e-mail. O endereço é dividido entre rua, número, cep, cidade e estado. 
+
+A loja tem também seus produtos cadastrados. Cada produto tem um identificador, um nome, uma descrição, tamanho e um preço associado. As camisas vendidas na loja são fornecidas por um fornecedor externo, que pode ser responsável por vários produtos diferentes; mas cada produto é fornecido por apenas um fornecedor. Os fornecedores possuem CNPJ (identificador), nome da empresa, telefones e e-mail.
+
+Os clientes fazem pedidos, que são identificados por um código; e pedidos obrigatoriamente contêm um ou vários produtos. Os pedidos podem ser feitos utilizando um cupom, que tem um código associado (identificados), uma descrição, e o valor de desconto.
+
+Clientes podem também indicar outros clientes, e conforme o número de indicações cresce, eles podem se tornar clientes VIP. Cada cliente VIP possui um nível, a partir do qual pode obter benefícios específicos. Um cliente pode indicar vários clientes, mas só pode ser indicado por um.
+
+Os clientes podem salvar produtos para comprar depois, em suas listas de desejos. As listas não podem ser compartilhadas, pertencendo apenas a um cliente; e uma lista de desejos obrigatoriamente precisa ser criada por um cliente, além de conter pelo menos um produto. Cada lista é referenciada pela sua data de criação. Cada cliente pode também ter um cartão fidelidade, que é referenciado por um código específico mas está obrigatoriamente atrelado a um cliente.
