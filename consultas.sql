@@ -1,9 +1,18 @@
--- Consulta com GROUP BY: Número de produtos vendidos por pedido
-SELECT p.cod_pedido, COUNT(c.cod_produto) AS quantidade_produto
-FROM Pedido p
-LEFT JOIN Contém c ON p.cod_pedido = c.cod_pedido
-GROUP BY p.cod_pedido
-HAVING COUNT(c.cod_produto) > 3;
+-- Consulta alternativa para calcular o valor total do pedido 101 (substitua pelo código do pedido desejado)
+SELECT p.COD_PEDIDO,
+       SUM(pr.PRECO) AS VALOR_TOTAL
+FROM PEDIDO p
+JOIN CONTEM c ON p.COD_PEDIDO = c.COD_PEDIDO
+JOIN PRODUTO pr ON c.COD_PRODUTO = pr.COD_PRODUTO
+WHERE p.COD_PEDIDO = 101
+GROUP BY p.COD_PEDIDO, p.COD_CLIENTE;
+
+-- Consulta com GROUP BY e HAVING: Clientes com mais de um pedido
+SELECT c.nome AS cliente, COUNT(p.cod_pedido) AS total_pedidos
+FROM Cliente c
+LEFT JOIN Pedido p ON c.cpf = p.cod_cliente
+GROUP BY c.nome, c.cpf
+HAVING COUNT(p.cod_pedido) > 1;
 
 -- Junção Interna (INNER JOIN): Produtos e seus fornecedores
 SELECT p.nome AS produto, f.nome AS fornecedor
@@ -33,15 +42,15 @@ WHERE NOT EXISTS (
     WHERE p.cod_cliente = c.cpf
 );
 
--- Subconsulta Escalar: Nome do cliente com o pedido de maior valor
-SELECT nome
-FROM Cliente
-WHERE cpf = (
-    SELECT cod_cliente
-    FROM Pedido
-    WHERE cod_pedido = (
-        SELECT MAX(preco)
-        FROM Pedido
+-- Subconsulta Escalar: Nome do cliente com o pedido mais recente
+SELECT c.nome
+FROM Cliente c
+WHERE c.cpf = (
+    SELECT p.cod_cliente
+    FROM Pedido p
+    WHERE p.cod_pedido = (
+        SELECT MAX(p2.cod_pedido)
+        FROM Pedido p2
     )
 );
 
@@ -50,8 +59,8 @@ SELECT p.cod_produto, p.nome, p.descricao
 FROM Produto p
 WHERE p.cod_produto IN (
     SELECT cod_produto
-    FROM Contém
-    WHERE cod_pedido = 'codigo_do_pedido'
+    FROM Contem
+    WHERE cod_pedido = 101
 );
 
 -- Subconsulta de Tabela: Pedidos feitos por clientes VIP
@@ -60,10 +69,10 @@ FROM Pedido
 WHERE cod_cliente IN (
     SELECT cpf
     FROM Cliente
-    WHERE eh_vip = true
+    WHERE eh_vip = 1
 );
 
--- Operação de Conjunto (UNION): Combinação de emails de clientes e fornecedores
-SELECT email FROM Cliente
-UNION
-SELECT email FROM Fornecedor;
+-- Operação de Conjunto (UNION ALL): Lista de entidades (clientes e fornecedores) com seus respectivos tipos
+SELECT nome AS entidade, 'Cliente' AS tipo FROM CLIENTE
+UNION ALL
+SELECT nome AS entidade, 'Fornecedor' AS tipo FROM FORNECEDOR;
