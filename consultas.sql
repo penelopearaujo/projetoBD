@@ -1,11 +1,11 @@
 -- Consulta alternativa para calcular o valor total do pedido 101 (substitua pelo código do pedido desejado)
-SELECT p.COD_PEDIDO,
-       SUM(pr.PRECO) AS VALOR_TOTAL
-FROM PEDIDO p
-JOIN CONTEM c ON p.COD_PEDIDO = c.COD_PEDIDO
-JOIN PRODUTO pr ON c.COD_PRODUTO = pr.COD_PRODUTO
-WHERE p.COD_PEDIDO = 101
-GROUP BY p.COD_PEDIDO, p.COD_CLIENTE;
+SELECT p.cod_pedido,
+       SUM(pr.preco) AS valor_total
+FROM Pedido p
+JOIN Contem c ON p.cod_pedido = c.cod_pedido
+JOIN Produto pr ON c.cod_produto = pr.cod_produto
+WHERE p.cod_pedido = 101
+GROUP BY p.cod_pedido, p.cod_cliente;
 
 -- Consulta com GROUP BY e HAVING: Clientes com mais de um pedido
 SELECT c.nome AS cliente, COUNT(p.cod_pedido) AS total_pedidos
